@@ -316,34 +316,38 @@
 </main>
 
 <!-- Script links -->
+<!-- jQuery, Bootstrap, AOS -->
 <script src="./assets/js/jquery-3.6.4.js"></script>
 <script src="./assets/js/bootstrap.bundle.min.js"></script>
 <script src="./assets/js/aos.js"></script>
 <script src="./assets/js/main.js"></script>
-<script type="module">
-  import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-  import { FontLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/FontLoader.js';
 
+<!-- THREE.js as ES module -->
+<script type="module">
+  import * as THREE from 'https://unpkg.com/three@0.124.0/build/three.module.js';
+  import { FontLoader } from 'https://unpkg.com/three@0.124.0/examples/jsm/loaders/FontLoader.js';
+
+  // Expose globally for non-module scripts (like interaction.js)
   window.THREE = THREE;
-  window.THREE.FontLoader = FontLoader;
+  window.FontLoader = FontLoader;
 </script>
 
+<!-- Your interaction script -->
 <script src="main_interaction/interaction.js" defer></script>
-<script type="module">
-  import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 
-  const manager = new THREE.LoadingManager();
-</script>
-
-
-<!--<script src="bg/bg_main.js"></script>-->
+<!-- Background script for large screens -->
 <script>
-    if(window.innerWidth >= 769) {
-        var script = document.createElement('script');
-        script.src = "bg/bg_main.js";
-        document.head.appendChild(script);
-    }
+if(window.innerWidth >= 769) {
+    const script = document.createElement('script');
+    script.src = "bg/bg_main.js";
+    script.defer = true;
+    document.head.appendChild(script);
+}
 </script>
+
+<!-- API loaders -->
+<script src="./assets/js/api-loader.js" defer></script>
+
 <script>
 async function loadPersonalInfo() {
   try {
