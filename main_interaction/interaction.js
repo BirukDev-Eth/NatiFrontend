@@ -1,15 +1,27 @@
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+import { FontLoader } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/FontLoader.js";
+import { TextGeometry } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/geometries/TextGeometry.js";
+
 const preload = () => {
 
     let manager = new THREE.LoadingManager();
     manager.onLoad = function() {
-        const environment = new Environment( typo, particle );
+        const environment = new Environment(typo, particle);
     }
 
-    var typo = null;
-    const loader = new THREE.FontLoader( manager );
-    const font = loader.load('https://res.cloudinary.com/dydre7amr/raw/upload/v1612950355/font_zsd4dr.json', function ( font ) { typo = font; });
-    const particle = new THREE.TextureLoader( manager ).load( 'https://res.cloudinary.com/dfvtkoboz/image/upload/v1605013866/particle_a64uzf.png');
+    let typo = null;
 
+    const loader = new FontLoader(manager);  // ✅ use imported FontLoader directly
+    loader.load(
+        'https://res.cloudinary.com/dydre7amr/raw/upload/v1612950355/font_zsd4dr.json',
+        function(font) { 
+            typo = font; 
+        }
+    );
+
+    const particle = new THREE.TextureLoader(manager).load(
+        'https://res.cloudinary.com/dfvtkoboz/image/upload/v1605013866/particle_a64uzf.png'
+    );
 }
 
 if ( document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll))
