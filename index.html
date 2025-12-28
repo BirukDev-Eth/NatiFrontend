@@ -320,7 +320,15 @@
 <script src="./assets/js/bootstrap.bundle.min.js"></script>
 <script src="./assets/js/aos.js"></script>
 <script src="./assets/js/main.js"></script>
-<script src="main_interaction/interaction.js"></script>
+<script type="module">
+  import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+  import { FontLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/FontLoader.js';
+
+  window.THREE = THREE;
+  window.THREE.FontLoader = FontLoader;
+</script>
+
+<script src="main_interaction/interaction.js" defer></script>
 <script type="module">
   import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 
