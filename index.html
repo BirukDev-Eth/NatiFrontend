@@ -161,65 +161,16 @@
                                 </div>
                             </div>
 
-                            <div data-aos="zoom-in" class="flex-1">
-                                <div class="about-services-box info-box shadow-box h-full">
-<!--                                    <a href="404.html" class="overlay-link"></a>-->
-                                    <img src="./assets/images/bg1.png" alt="BG" class="bg-img">
-<!--                                    <div class="icon-boxes">-->
-<!--                                        <i class="iconoir-book"></i>-->
-<!--                                        <i class="iconoir-design-pencil"></i>-->
-<!--                                        <i class="iconoir-color-filter"></i>-->
-<!--                                        <i class="iconoir-dev-mode-phone"></i>-->
-<!--                                    </div>-->
-                                    <div class="d-flex align-items-center justify-content-between">
-<!--                                        <div class="infos">-->
-<!--                                            <h4>specialization</h4>-->
-<!--                                            <h1>Services Offering</h1>-->
-<!--                                        </div>-->
-<!--    -->
-<!--                                        <a href="./service.html" class="about-btn">-->
-<!--                                            <img src="./assets/images/icon.svg" alt="Button">-->
-<!--                                        </a>-->
+                        
 
-<!--                                        |Test interactions-->
-
-                                        <script type="x-shader/x-vertex" id="vertexshader">
-
-                                            attribute float size;
-                                            attribute vec3 customColor;
-                                            varying vec3 vColor;
-
-                                            void main() {
-
-                                              vColor = customColor;
-                                              vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-                                              gl_PointSize = size * ( 300.0 / -mvPosition.z );
-                                              gl_Position = projectionMatrix * mvPosition;
-
-                                            }
-
-                                        </script>
-                                        <script type="x-shader/x-fragment" id="fragmentshader">
-
-                                            uniform vec3 color;
-                                            uniform sampler2D pointTexture;
-
-                                            varying vec3 vColor;
-
-                                            void main() {
-
-                                              gl_FragColor = vec4( color * vColor, 1.0 );
-                                              gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
-
-                                            }
-                                        </script>
-
-                                        <div id="magic"></div>
-
-    
-                                    </div>
-                                </div>
-                            </div>
+                           <div data-aos="zoom-in">
+  <div class="about-profile-box info-box shadow-box h-full">
+    <p>Testimonials</p>
+    <div class="testimonial-container" id="testimonial-container">
+      <!-- Testimonials will be inserted here by JS -->
+    </div>
+  </div>
+</div>
 
                             <div data-aos="zoom-in">
                                 <div class="about-profile-box info-box shadow-box h-full">
@@ -250,7 +201,7 @@
                                 </div>
                             </div>
                             
-                        </div>
+                     
                     </div>
                     
                 </div>
@@ -320,7 +271,13 @@
 <script src="./assets/js/bootstrap.bundle.min.js"></script>
 <script src="./assets/js/aos.js"></script>
 <script src="./assets/js/main.js"></script>
-<script type="module" src="main_interaction/interaction.js"></script>
+<script src="main_interaction/interaction.js"></script>
+<script type="module">
+  import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+
+  const manager = new THREE.LoadingManager();
+</script>
+
 
 <!--<script src="bg/bg_main.js"></script>-->
 <script>
@@ -411,6 +368,48 @@ async function loadExperienceAndProjects() {
 document.addEventListener("DOMContentLoaded", loadExperienceAndProjects);
 
 
+
+</script>
+
+<script>
+async function loadTestimonials() {
+  try {
+    const res = await fetch('https://nati-production.up.railway.app/api/testimonies/');
+    const testimonials = await res.json();
+
+    const container = document.getElementById('testimonial-container');
+
+    testimonials.forEach((t, index) => {
+      const div = document.createElement('div');
+      div.classList.add('testimonial');
+      div.innerHTML = `
+        <img src="${t.image}" alt="${t.name}" class="imageoftestimonial">
+        <div class="info">
+          <p class="testimonial-name">${t.name}</p>
+          <p class="testimonial-position">${t.position} at ${t.company}</p>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+
+    let current = 0;
+    const allTestimonials = document.querySelectorAll('.testimonial');
+
+    function showNext() {
+      allTestimonials.forEach((t) => t.classList.remove('active'));
+      allTestimonials[current].classList.add('active');
+      current = (current + 1) % allTestimonials.length;
+    }
+
+    showNext();
+    setInterval(showNext, 3000);
+
+  } catch (error) {
+    console.error('Error loading testimonials:', error);
+  }
+}
+
+loadTestimonials();
 
 </script>
 

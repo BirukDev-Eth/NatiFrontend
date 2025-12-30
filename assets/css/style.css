@@ -466,7 +466,7 @@ ol {
 .info-box.about-blog-box {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: start;
 }
 
 .about-blog-box.info-box.shadow-box.h-full::after {
@@ -2148,4 +2148,63 @@ ol {
     .h-full {
         /* Your CSS rules go here */
     }
+}.testimonial-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
+  overflow-y:hidden;
+  padding: 20px 60px;
+  min-width: 300px;
+  height:200px;
+
+}
+
+.testimonial {
+  position: relative;
+  text-align: center;
+  margin-left: -20px; /* overlap */
+  transition: transform 0.5s;
+}
+
+.imageoftestimonial {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+  cursor: pointer;
+  transition: transform 0.3s, border-color 0.3s, z-index 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial.active .imageoftestimonial {
+  transform: scale(1.2);
+  border-color: black;
+  z-index: 1000;
+}
+
+.info {
+    position: absolute;
+  margin-top: 5px; 
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  min-width: 120px;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s, opacity 0.5s;
+  transform: translateY(-10px);
+  font-size: 0.85rem;
+}
+
+.testimonial.active .info {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.testimonial-name{
+    margin:0;
 }
